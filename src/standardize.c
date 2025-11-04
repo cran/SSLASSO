@@ -28,12 +28,7 @@ SEXP standardize(SEXP X_) {
     for (int i=0; i<n; i++) XX[j*n+i] = X[j*n+i] - c[j];
 
     // Scale
-    s[j] = 0;
-    for (int i=0; i<n; i++) {
-      s[j] += pow(XX[j*n+i], 2);
-    }
-    s[j] = sqrt(s[j]/n);
-    for (int i=0; i<n; i++) XX[j*n+i] = XX[j*n+i]/s[j];
+    s[j] = 1.0;
   }
 
   // Return list

@@ -1,6 +1,21 @@
-
+#' Plot coefficients from a "SSLASSO" object
+#'
+#' Produces a coefficient profile plot of the SSLASSO solution path.
+#'
+#' @param x An object of class "SSLASSO", usually, a result of a call to \code{SSLASSO}.
+#' @param ... Other arguments to be passed to \code{plot}.
+#' 
+#' @return No return value, called for side effects (produces a plot of the coefficient paths).
+#'  
+#' @importFrom graphics matplot matpoints title par text
+#' @exportS3Method plot SSLASSO
+#'
 plot.SSLASSO<-function(x, ...){
 
+  # Save and restore graphical parameters on exit
+  oldpar <- par(no.readonly = TRUE)
+  on.exit(par(oldpar))
+  
 	betas <-t(x$beta)
         
      	v0s <-x$lambda0

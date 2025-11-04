@@ -1,13 +1,20 @@
-citHeader("To cite SSLASSO in publications use:")
-
-citEntry(
-  entry = "Article",
-  author = personList(as.person("Veronica Rockova"),as.person("Edward George")),
+bibentry("Article",
   title = "The Spike-and-Slab LASSO",
+  author = c(person("Veronika", "Rockova"), person("Edward I.", "George")),
   journal = "Journal of the American Statistical Association",
-  year = "2018",
   volume = "113",
-  number="521",
-  pages="431--444",
+  Number = "521",
+  pages = "431--444",
+  year = 2018
+)
 
-  textVersion = "Rockova, V., & George, E. I. (2018). The Spike-and-Slab LASSO. Journal of the American Statistical Association, 113:521, 431-444.")
+bibentry("Article",
+  title = "On Variance Estimation for Bayesian Variable Selection",
+  author = c(person("Gemma", "Moran"), person("Veronika", "Rockova"), person("Edward I.", "George")),
+  journal = "Bayesian Analysis",
+  volume = "14",
+  number = "4",
+  pages = "1091--1119",
+  year = "2019"
+)
+

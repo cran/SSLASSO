@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 
-SEXP SSL_gaussian(SEXP X_, SEXP y_, SEXP penalty_, SEXP variance_, SEXP lambda1_, SEXP lambda0s_, SEXP theta_, SEXP sigma_, SEXP a_,  SEXP b_, SEXP eps_, SEXP max_iter_, SEXP counter_);
+SEXP SSL_gaussian(SEXP X_, SEXP y_, SEXP initialbeta_, SEXP penalty_, SEXP variance_, SEXP lambda1_, SEXP lambda0s_, SEXP theta_, SEXP sigma_, SEXP a_,  SEXP b_, SEXP eps_, SEXP max_iter_, SEXP counter_);
 SEXP standardize(SEXP X_);
 
 
@@ -113,7 +113,7 @@ double update_sigma2(double *r, int n){
 }
 
 
-double SSL(double z, double beta, double lambda0, double lambda1, double theta, double v, int n, double delta, double sigma2) {
+double SSL(double z, double beta, double lambda0, double lambda1, double theta, double v, double norm, double delta, double sigma2) {
 
   double s=0;
 
@@ -133,28 +133,28 @@ double SSL(double z, double beta, double lambda0, double lambda1, double theta, 
     
     temp = fabs(z) - sigma2*lambda;
     
-    if (temp > 0) return(temp*s/n);
+    if (temp > 0) return(temp*s/norm);
     
     else return(0);
    
   }
 }
 
-double g(double x, double theta, double sigma2, double lambda1, double lambda0, int n){
+double g(double x, double theta, double sigma2, double lambda1, double lambda0, double norm){
   
   double value=lambdastar(x,theta,lambda1,lambda0);
   
-  return pow((value-lambda1),2)+2*n/sigma2*log(pstar(x,theta,lambda1,lambda0));
+  return pow((value-lambda1),2)+2*norm/sigma2*log(pstar(x,theta,lambda1,lambda0));
 }
 
 
-double threshold(double theta, double sigma2, double lambda1, double lambda0, int n){
+double threshold(double theta, double sigma2, double lambda1, double lambda0, double norm){
   
   if (lambda0==lambda1){return sigma2*lambda1;} else{
     
-    if( g(0,theta,sigma2, lambda1,lambda0, n)>0){
+    if( g(0,theta,sigma2, lambda1,lambda0, norm)>0){
       
-      return sqrt(2* n *sigma2*log(1/pstar(0,theta,lambda1,lambda0)))+sigma2*lambda1;
+      return sqrt(2* norm *sigma2*log(1/pstar(0,theta,lambda1,lambda0)))+sigma2*lambda1;
       
     }
     
